@@ -27,6 +27,15 @@
             font-family: "Inter", sans-serif;
 
         }
+
+        .active-btn {
+            background: #3B82F6 !important;
+            color: white !important;
+        }
+
+        .text-color {
+            color: #64748B;
+        }
     </style>
 
 </head>
@@ -39,19 +48,19 @@
             <div class="stats shadow">
                 <div class="stat w-full h-[100px]">
                     <div class="stat-title text-xl text-gray-800">Total</div>
-                    <div class="stat-value text-[#002C5C]">8</div>
+                    <div id="total-count" class="stat-value text-[#002C5C]">0</div>
                 </div>
             </div>
             <div class="stats shadow">
                 <div class="stat w-full h-[100px]">
                     <div class="stat-title text-xl text-gray-800">Interview</div>
-                    <div class="stat-value text-green-500">0</div>
+                    <div id="interview-count" class="stat-value text-green-500">0</div>
                 </div>
             </div>
             <div class="stats shadow">
                 <div class="stat w-full h-[100px]">
                     <div class="stat-title text-xl text-gray-800">Rejected</div>
-                    <div class="stat-value text-error">0</div>
+                    <div id="rejected-count" class="stat-value text-error">0</div>
                 </div>
             </div>
         </div>
@@ -60,73 +69,87 @@
     <section class="space-y-6">
         <div class="flex justify-between">
             <h3 class="font-bold text-2xl">Available Jobs</h3>
-            <p class="stat-title text-xl">8 jobs</p>
+            <p id="jobs-count" class="stat-title text-xl">8 jobs</p>
         </div>
         <div class="flex gap-3">
-            <button class="btn bg-[#3B82F6] text-white font-normal px-7 rounded-md hover:bg-white hover:text-[#3B82F6]">All</button>
-            <button class="btn bg-white text-[#64748B] font-normal px-7 rounded-md">Interviews</button>
-            <button class="btn bg-white text-[#64748B] font-normal px-7 rounded-md">Rejected</button>
+            <button onclick="toggleStyle('all-filter-btn')" id="all-filter-btn"
+                class="btn active-btn text-white font-normal px-7 rounded-md">All</button>
+            <button onclick="toggleStyle('interview-filter-btn')" id="interview-filter-btn"
+                class="btn  font-normal px-7 rounded-md">Interviews</button>
+            <button onclick="toggleStyle('rejected-filter-btn')" id="rejected-filter-btn"
+                class="btn  font-normal px-7 rounded-md">Rejected</button>
         </div>
     </section>
-    <section class="space-y-5">
-        <div id="" class="flex justify-between p-10 shadow rounded-md job-card">
-            <div class="s">
-                <h2 class="font-bold text-2xl mb-1">Mobile First Corp</h2>
-                <p class="font-medium mb-5">React Native Developer</p>
-                <p class="mb-5">Remote • Full-time • $130,000 - $175,000</p>
-                <span class="btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                <p class="mb-5">Build cross-platform mobile applications using React Native. Work on products used by
-                    millions of
-                    users worldwide.</p>
-                <button class="btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
-                <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>
-            </div>
-            <div>
-                <button id="" class="btn rounded-full py-6 btn-delete"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-        </div>
-        <div id="" class="flex justify-between p-10 shadow rounded-md job-card">
-            <div class="s">
-                <h2 class="font-bold text-2xl mb-1">WebFlow Agency</h2>
-                <p class="font-medium mb-5">Web Designer & Developer</p>
-                <p class="mb-5">Los Angeles, CA • Part-time • $80,000 - $120,000</p>
-                <span class="btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                <p class="mb-5">Create stunning web experiences for high-profile clients. Must have portfolio and
-                    experience with modern web design trends.</p>
-                <button class="btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
-                <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>
-            </div>
-            <div>
-                <button id="" class="btn rounded-full py-6 btn-delete"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-        </div>
-        <div id="" class="flex justify-between p-10 shadow rounded-md job-card">
-            <div class="s">
-                <h2 class="font-bold text-2xl mb-1">DataViz Solutions</h2>
-                <p class="font-medium mb-5">Data Visualization Specialist</p>
-                <p class="mb-5">Boston, MA
-                    •
-                    Full-time
-                    •
-                    $125,000 - $165,000</p>
-                <span class="btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                <p class="mb-5">Transform complex data into compelling visualizations. Required skills: D3.js, React,
-                    and strong analytical thinking.
-                </p>
-                <button class="btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
-                <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>
-            </div>
-            <div>
-                <button id="" class="btn rounded-full py-6 btn-delete"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-        </div>
+    <!-- Filter Section -->
+     <section id="filtered-section" class="hidden">
 
-    </section>
-    <script>
-        
-    </script>
-
-    <script src="script/script.js"></script>
+     </section>
+    
+    <main>
+        <section id="allCards" class="space-y-5 ">
+            <div id="" class="flex justify-between md:p-10 shadow rounded-md job-card p-5">
+                <div class="s">
+                    <h2 class="job-title font-bold text-2xl mb-1">Mobile First Corp</h2>
+                    <p class="job-position font-medium mb-5">React Native Developer</p>
+                    <p class="job-type mb-5">Remote • Full-time • $130,000 - $175,000</p>
+                    <span class="job-badge btn status-badge bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
+                    <p class="job-description mb-5">Build cross-platform mobile applications using React Native. Work on products used
+                        by
+                        millions of
+                        users worldwide.</p>
+                    <button data-status="Interview"
+                        class="interview-btn btn action-btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
+                    <button data-status="Rejected"
+                        class="rejected-btn btn action-btn btn-outline btn-error hover:text-white">REJECTED</button>
+                </div>
+                <div>
+                    <button id="" class="btn rounded-full py-6 btn-delete"><i
+                            class="fa-regular fa-trash-can"></i></button>
+                </div>
+            </div>
+            <div id="" class="flex justify-between p-10 shadow rounded-md job-card">
+                <div class="s">
+                    <h2 class="job-title font-bold text-2xl mb-1">WebFlow Agency</h2>
+                    <p class="job-position font-medium mb-5">Web Designer & Developer</p>
+                    <p class="job-type mb-5">Los Angeles, CA • Part-time • $80,000 - $120,000</p>
+                    <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
+                    <p class="job-description mb-5">Create stunning web experiences for high-profile clients. Must have portfolio and
+                        experience with modern web design trends.</p>
+                    <button class="interview-btn btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
+                    <button class="rejected-btn btn btn-outline btn-error hover:text-white">REJECTED</button>
+                </div>
+                <div>
+                    <button id="" class="btn rounded-full py-6 btn-delete"><i
+                            class="fa-regular fa-trash-can"></i></button>
+                </div>
+            </div>
+            <div id="" class="flex justify-between p-10 shadow rounded-md job-card">
+                <div class="s">
+                    <h2 class="job-title font-bold text-2xl mb-1">DataViz Solutions</h2>
+                    <p class="job-position font-medium mb-5">Data Visualization Specialist</p>
+                    <p class="job-type mb-5">Boston, MA
+                        •
+                        Full-time
+                        •
+                        $125,000 - $165,000</p>
+                    <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
+                    <p class="job-description mb-5">Transform complex data into compelling visualizations. Required skills: D3.js,
+                        React,
+                        and strong analytical thinking.
+                    </p>
+                    <button class="interview-btn btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
+                    <button class="rejected-btn btn btn-outline btn-error hover:text-white">REJECTED</button>
+                </div>
+                <div>
+                    <button id="" class="btn rounded-full py-6 btn-delete"><i
+                            class="fa-regular fa-trash-can"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- <script src="script/mechine.js"></script> -->
+    <!-- <script src="script/script.js"></script> -->
+     <script src="script/js.js"></script>
 </body>
 
 </html>
