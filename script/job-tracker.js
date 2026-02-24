@@ -227,13 +227,12 @@ function renderRejected() {
     }
 }
 const deleteButtons = document.querySelectorAll(".btn-delete");
-deleteButtons.forEach(function (button) {
-    button.addEventListener
-        ("click", function () {
-            const card = button.closest(".job-card");
-            card.remove();
 
-        });
-});
+for (let i = 0; i < deleteButtons.length; i++) {
+    deleteButtons[i].addEventListener("click", function () {
+        const card = deleteButtons[i].closest(".job-card");
+        card.remove();
+    });
+}
 
 
