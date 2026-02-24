@@ -1,5 +1,6 @@
 let interViews = [];
 let rejecteds = [];
+let currentStatus = 'all';
 let totalCount = document.getElementById('total-count');
 let interViewCount = document.getElementById('interview-count');
 let rejectedCount = document.getElementById('rejected-count');
@@ -29,21 +30,25 @@ function toggleStyle(id) {
 
 
     const selected = document.getElementById(id);
+    currentStatus = id;
 
     selected.classList.remove('bg-gray-300', 'text-black');
     selected.classList.add('active-btn', 'text-white');
-
+    allCards.classList.remove('hidden');
+    filterSection.classList.remove('hidden');
 
     if (id == 'interview-filter-btn') {
         allCards.classList.add('hidden');
-        filterSection.classList.remove('hidden');
+        renderInterviews()
+        // filterSection.classList.remove('hidden');
     } else if (id == 'all-filter-btn') {
-        allCards.classList.remove('hidden');
+        // allCards.classList.remove('hidden');
         filterSection.classList.add('hidden');
     }
-    else if (id == 'rejected-filterbtn') {
+    else if (id == 'rejected-filter-btn') {
         allCards.classList.add('hidden');
-        filterSection.classList.remove('hidden');
+        renderRejected()
+        // filterSection.classList.remove('hidden');
     }
 
 }
@@ -60,6 +65,7 @@ function showOnly(id) {
 }
 
 mainContainers.addEventListener('click', function (event) {
+    console.log(event.target);
     if (event.target.classList.contains('interview-btn')) {
         const parentNode = event.target.parentNode.parentNode;
         // const jobCard = event.target.closest('.job-card');
@@ -86,7 +92,10 @@ mainContainers.addEventListener('click', function (event) {
         if (!cardExist) {
             interViews.push(cardInfo);
         }
-        console.log(interViews);
+
+        rejecteds = rejecteds.filter(item => item.jobTitle != cardInfo.jobTitle)
+        console.log(rejecteds);
+
         calculate()
 
         renderInterviews()
@@ -102,6 +111,7 @@ mainContainers.addEventListener('click', function (event) {
         const jobDescription = parentNode.querySelector('.job-description').innerText;
         parentNode.querySelector('.job-badge').innerText = 'Rejected';
 
+        console.log('rejecteds');
 
         const cardInfo = {
             // jobCard,
@@ -113,10 +123,12 @@ mainContainers.addEventListener('click', function (event) {
         }
         //console.log(cardInfo);
 
-        const cardExist = interViews.find(item => item.jobTitle == cardInfo.jobTitle)
+        const cardExist = rejecteds.find(item => item.jobTitle == cardInfo.jobTitle)
         if (!cardExist) {
             rejecteds.push(cardInfo);
         }
+        // rejecteds = 
+        interViews = interViews.filter(item => item.jobTitle != cardInfo.jobTitle)
         calculate()
 
         renderRejected()
@@ -137,8 +149,8 @@ function renderInterviews() {
                     <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">${interview.jobBadge}</span>
                     <p class="job-description mb-5">${interview.jobDescription}
                     </p>
-                    <button class=" btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
-                    <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>
+                    <button class="interview-btn btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
+                    <button class="rejected-btn btn btn-outline btn-error hover:text-white">REJECTED</button>
                 </div>
                 <div>
                     <button id="" class="btn rounded-full py-6 btn-delete"><i
@@ -163,8 +175,8 @@ function renderRejected() {
                     <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">${rejected.jobBadge}</span>
                     <p class="job-description mb-5">${rejected.jobDescription}
                     </p>
-                    <button class=" btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
-                    <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>
+                    <button class="interview-btn btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
+                    <button class="rejected-btn btn btn-outline btn-error hover:text-white">REJECTED</button>
                 </div>
                 <div>
                     <button id="" class="btn rounded-full py-6 btn-delete"><i
@@ -175,3 +187,12 @@ function renderRejected() {
         filterSection.appendChild(div);
     }
 }
+
+
+const deleteButtons = document.querySelectorAll(".btn-delete");
+deleteButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        const card = button.closest(".job-card");
+        card.remove();
+    });
+});
