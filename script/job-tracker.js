@@ -4,6 +4,8 @@ let currentStatus = 'all';
 let totalCount = document.getElementById('total-count');
 let interViewCount = document.getElementById('interview-count');
 let rejectedCount = document.getElementById('rejected-count');
+let jobsCount = document.getElementById('jobs-count');
+jobsCount
 
 let allCards = document.getElementById('allCards');
 let mainContainers = document.querySelector('main');
@@ -137,11 +139,28 @@ mainContainers.addEventListener('click', function (event) {
 })
 function renderInterviews() {
     filterSection.innerHTML = '';
-    for (let interview of interViews) {
-        console.log(interview);
-        let div = document.createElement('div');
-        div.className = 'flex justify-between p-10 shadow rounded-md job-card';
-        div.innerHTML = `
+    if (interViews.length === 0) {
+        filterSection.innerHTML =
+            `
+        <div class="card rounded-md grid place-items-center bg-base-100 w-11/12 mx-auto shadow-sm h-[400px]">
+        <div class="">
+            <div class="px-10 pt-10 w-full flex justify-center items-center">
+                <img src="jobs.png" alt="Shoes" class="rounded-xl" />
+            </div>
+            <div class="card-body items-center text-center">
+                <h2 class="card-title text-3xl font-bold text-[#002C5C]">No jobs available</h2>
+                <p class="text-2xl">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    </div>
+        `;
+    } else {
+        filterSection.innerHTML = '';
+        for (let interview of interViews) {
+            console.log(interview);
+            let div = document.createElement('div');
+            div.className = 'flex justify-between p-10 shadow rounded-md job-card';
+            div.innerHTML = `
         <div class="s">
                     <h2 class="job-title font-bold text-2xl mb-1">${interview.jobTitle}</h2>
                     <p class="job-position font-medium mb-5">${interview.jobPosition}</p>
@@ -158,16 +177,35 @@ function renderInterviews() {
                 </div>
             </div>
         `
-        filterSection.appendChild(div);
+            filterSection.appendChild(div);
+        }
     }
 }
 function renderRejected() {
     filterSection.innerHTML = '';
-    for (let rejected of rejecteds) {
-        console.log(rejected);
-        let div = document.createElement('div');
-        div.className = 'flex justify-between p-10 shadow rounded-md job-card';
-        div.innerHTML = `
+    if (rejecteds.length === 0) {
+        filterSection.innerHTML =
+            `
+        <div class="card rounded-md grid place-items-center bg-base-100 w-11/12 mx-auto shadow-sm h-[400px]">
+        <div class="">
+            <div class="px-10 pt-10 w-full flex justify-center items-center">
+                <img src="jobs.png" alt="Shoes" class="rounded-xl" />
+            </div>
+            <div class="card-body items-center text-center">
+                <h2 class="card-title text-3xl font-bold text-[#002C5C]">No jobs available</h2>
+                <p class="text-2xl">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    </div>
+        `;
+    }
+    else {
+        filterSection.innerHTML = '';
+        for (let rejected of rejecteds) {
+            console.log(rejected);
+            let div = document.createElement('div');
+            div.className = 'flex justify-between p-10 shadow rounded-md job-card';
+            div.innerHTML = `
         <div class="s">
                     <h2 class="job-title font-bold text-2xl mb-1">${rejected.jobTitle}</h2>
                     <p class="job-position font-medium mb-5">${rejected.jobPosition}</p>
@@ -184,15 +222,18 @@ function renderRejected() {
                 </div>
             </div>
         `
-        filterSection.appendChild(div);
+            filterSection.appendChild(div);
+        }
     }
 }
-
-
 const deleteButtons = document.querySelectorAll(".btn-delete");
 deleteButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        const card = button.closest(".job-card");
-        card.remove();
-    });
+    button.addEventListener
+        ("click", function () {
+            const card = button.closest(".job-card");
+            card.remove();
+
+        });
 });
+
+
