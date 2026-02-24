@@ -33,6 +33,19 @@ function toggleStyle(id) {
     selected.classList.remove('bg-gray-300', 'text-black');
     selected.classList.add('active-btn', 'text-white');
 
+
+    if (id == 'interview-filter-btn') {
+        allCards.classList.add('hidden');
+        filterSection.classList.remove('hidden');
+    } else if (id == 'all-filter-btn') {
+        allCards.classList.remove('hidden');
+        filterSection.classList.add('hidden');
+    }
+    else if (id == 'rejected-filterbtn') {
+        allCards.classList.add('hidden');
+        filterSection.classList.remove('hidden');
+    }
+
 }
 function showOnly(id) {
 
@@ -47,56 +60,108 @@ function showOnly(id) {
 }
 
 mainContainers.addEventListener('click', function (event) {
-
     if (event.target.classList.contains('interview-btn')) {
         const parentNode = event.target.parentNode.parentNode;
-       // const jobCard = event.target.closest('.job-card');
+        // const jobCard = event.target.closest('.job-card');
 
         const jobTitle = parentNode.querySelector('.job-title').innerText;
         const jobPosition = parentNode.querySelector('.job-position').innerText;
         const jobType = parentNode.querySelector('.job-type').innerText;
         const jobBadge = parentNode.querySelector('.job-badge').innerText;
         const jobDescription = parentNode.querySelector('.job-description').innerText;
+        parentNode.querySelector('.job-badge').innerText = 'Interview';
 
 
         const cardInfo = {
-            jobCard,
+            // jobCard,
             jobTitle,
             jobPosition,
             jobType,
-            jobBadge,
+            jobBadge: 'Interview',
             jobDescription
         }
         //console.log(cardInfo);
 
         const cardExist = interViews.find(item => item.jobTitle == cardInfo.jobTitle)
-        parentNode.querySelector('.job-badge').innerText = 'Interview';
         if (!cardExist) {
             interViews.push(cardInfo);
         }
         console.log(interViews);
+        calculate()
+
         renderInterviews()
+    }
+    else if (event.target.classList.contains('rejected-btn')) {
+        const parentNode = event.target.parentNode.parentNode;
+        // const jobCard = event.target.closest('.job-card');
+
+        const jobTitle = parentNode.querySelector('.job-title').innerText;
+        const jobPosition = parentNode.querySelector('.job-position').innerText;
+        const jobType = parentNode.querySelector('.job-type').innerText;
+        const jobBadge = parentNode.querySelector('.job-badge').innerText;
+        const jobDescription = parentNode.querySelector('.job-description').innerText;
+        parentNode.querySelector('.job-badge').innerText = 'Rejected';
+
+
+        const cardInfo = {
+            // jobCard,
+            jobTitle,
+            jobPosition,
+            jobType,
+            jobBadge: 'Rejected',
+            jobDescription
+        }
+        //console.log(cardInfo);
+
+        const cardExist = interViews.find(item => item.jobTitle == cardInfo.jobTitle)
+        if (!cardExist) {
+            rejecteds.push(cardInfo);
+        }
+        calculate()
+
+        renderRejected()
     }
 
 })
 function renderInterviews() {
     filterSection.innerHTML = '';
     for (let interview of interViews) {
+        console.log(interview);
         let div = document.createElement('div');
         div.className = 'flex justify-between p-10 shadow rounded-md job-card';
         div.innerHTML = `
         <div class="s">
-                    <h2 class="job-title font-bold text-2xl mb-1">DataViz Solutions</h2>
-                    <p class="job-position font-medium mb-5">Data Visualization Specialist</p>
-                    <p class="job-type mb-5">Boston, MA
-                        •
-                        Full-time
-                        •
-                        $125,000 - $165,000</p>
-                    <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                    <p class="job-description mb-5">Transform complex data into compelling visualizations. Required skills: D3.js,
-                        React,
-                        and strong analytical thinking.
+                    <h2 class="job-title font-bold text-2xl mb-1">${interview.jobTitle}</h2>
+                    <p class="job-position font-medium mb-5">${interview.jobPosition}</p>
+                    <p class="job-type mb-5">${interview.jobType}</p>
+                    <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">${interview.jobBadge}</span>
+                    <p class="job-description mb-5">${interview.jobDescription}
+                    </p>
+                    <button class=" btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
+                    <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>
+                </div>
+                <div>
+                    <button id="" class="btn rounded-full py-6 btn-delete"><i
+                            class="fa-regular fa-trash-can"></i></button>
+                </div>
+            </div>
+        `
+        filterSection.appendChild(div);
+    }
+}
+function renderRejected() {
+    filterSection.innerHTML = '';
+    for (let rejected of rejecteds) {
+        console.log(rejected);
+        let div = document.createElement('div');
+        div.className = 'flex justify-between p-10 shadow rounded-md job-card';
+        div.innerHTML = `
+        <div class="s">
+                    <h2 class="job-title font-bold text-2xl mb-1">${rejected.jobTitle}</h2>
+                    <p class="job-position font-medium mb-5">${rejected.jobPosition}</p>
+                    <p class="job-type mb-5">${rejected.jobType}</p>
+                    <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">${rejected.jobBadge}</span>
+                    <p class="job-description mb-5">${rejected.jobDescription}
                     </p>
                     <button class=" btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
                     <button class="btn btn-outline btn-error hover:text-white">REJECTED</button>

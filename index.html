@@ -64,28 +64,30 @@
                 </div>
             </div>
         </div>
-        <hr class="mt-7 text-gray-200">
+        <hr class="mt-7 mb-7 text-gray-200">
     </header>
-    <section class="space-y-6">
-        <div class="flex justify-between">
-            <h3 class="font-bold text-2xl">Available Jobs</h3>
-            <p id="jobs-count" class="stat-title text-xl">8 jobs</p>
-        </div>
-        <div class="flex gap-3">
-            <button onclick="toggleStyle('all-filter-btn')" id="all-filter-btn"
-                class="btn active-btn text-white font-normal px-7 rounded-md">All</button>
-            <button onclick="toggleStyle('interview-filter-btn')" id="interview-filter-btn"
-                class="btn  font-normal px-7 rounded-md">Interviews</button>
-            <button onclick="toggleStyle('rejected-filter-btn')" id="rejected-filter-btn"
-                class="btn  font-normal px-7 rounded-md">Rejected</button>
-        </div>
-    </section>
-    <!-- Filter Section -->
-     <section id="filtered-section" class="hidden">
 
-     </section>
-    
+
+
     <main>
+        <section class="space-y-6">
+            <div class="flex justify-between">
+                <h3 class="font-bold text-2xl">Available Jobs</h3>
+                <p id="jobs-count" class="stat-title text-xl">8 jobs</p>
+            </div>
+            <div class="flex gap-3 mb-7">
+                <button onclick="toggleStyle('all-filter-btn')" id="all-filter-btn"
+                    class="btn active-btn text-white font-normal px-7 rounded-md">All</button>
+                <button onclick="toggleStyle('interview-filter-btn')" id="interview-filter-btn"
+                    class="btn  font-normal px-7 rounded-md">Interviews</button>
+                <button onclick="toggleStyle('rejected-filter-btn')" id="rejected-filter-btn"
+                    class="btn  font-normal px-7 rounded-md">Rejected</button>
+            </div>
+        </section>
+        <!-- Filter Section -->
+        <section id="filtered-section" class="hidden space-y-5">
+
+        </section>
         <section id="allCards" class="space-y-5 ">
             <div id="" class="flex justify-between md:p-10 shadow rounded-md job-card p-5">
                 <div class="s">
@@ -93,7 +95,8 @@
                     <p class="job-position font-medium mb-5">React Native Developer</p>
                     <p class="job-type mb-5">Remote • Full-time • $130,000 - $175,000</p>
                     <span class="job-badge btn status-badge bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                    <p class="job-description mb-5">Build cross-platform mobile applications using React Native. Work on products used
+                    <p class="job-description mb-5">Build cross-platform mobile applications using React Native. Work on
+                        products used
                         by
                         millions of
                         users worldwide.</p>
@@ -113,7 +116,8 @@
                     <p class="job-position font-medium mb-5">Web Designer & Developer</p>
                     <p class="job-type mb-5">Los Angeles, CA • Part-time • $80,000 - $120,000</p>
                     <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                    <p class="job-description mb-5">Create stunning web experiences for high-profile clients. Must have portfolio and
+                    <p class="job-description mb-5">Create stunning web experiences for high-profile clients. Must have
+                        portfolio and
                         experience with modern web design trends.</p>
                     <button class="interview-btn btn btn-outline btn-success hover:text-white mr-2">INTERVIEW</button>
                     <button class="rejected-btn btn btn-outline btn-error hover:text-white">REJECTED</button>
@@ -133,7 +137,8 @@
                         •
                         $125,000 - $165,000</p>
                     <span class="job-badge btn bg-[#EEF4FF] font-normal mb-2">Not Applied</span>
-                    <p class="job-description mb-5">Transform complex data into compelling visualizations. Required skills: D3.js,
+                    <p class="job-description mb-5">Transform complex data into compelling visualizations. Required
+                        skills: D3.js,
                         React,
                         and strong analytical thinking.
                     </p>
@@ -149,7 +154,7 @@
     </main>
     <!-- <script src="script/mechine.js"></script> -->
     <!-- <script src="script/script.js"></script> -->
-     <script src="script/js.js"></script>
+    <script src="script/js.js"></script>
 </body>
 
 </html>
