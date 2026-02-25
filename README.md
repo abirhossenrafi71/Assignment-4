@@ -1,40 +1,25 @@
-# JavaScript DOM & Events – Quick Notes
+# JavaScript DOM and Event Handling Questions
 
-## 1. Difference between `getElementById`, `getElementsByClassName`, and `querySelector` / `querySelectorAll`
+1. **What is the difference between `getElementById`, `getElementsByClassName`, and `querySelector` / `querySelectorAll`?**
 
-* **`getElementById('id')`** → Selects one element by ID.
-* **`getElementsByClassName('class')`** → Returns an **HTMLCollection** of elements by class.
-* **`querySelector('selector')`** → Selects the **first element** matching a CSS selector.
-* **`querySelectorAll('selector')`** → Selects **all elements** matching a CSS selector (**NodeList**).
+- `getElementById()` takes a single ID element.
+- `getElementsByClassName()` returns multiple elements of the same class.
+- `querySelector()` takes the first match.
+- `querySelectorAll()` takes all matches.
 
----
+2. **How do you create and insert a new element into the DOM?**
 
-## 2. Create and Insert a New Element
+Create an element with `createElement()`, set its content, and add it to the DOM with `append()` or `appendChild()`.
 
-```js
-const div = document.createElement('div');
-div.textContent = 'Hello';
-document.body.appendChild(div);
-```
+3. **What is Event Bubbling? And how does it work?**
 
----
+When an event occurs in a child, it gradually rises to the parent—this is called *Event Bubbling*.
 
-## 3. Event Bubbling
+4. **What is Event Delegation in JavaScript? Why is it useful?**
 
-* Event starts from the **target element** and bubbles up to ancestors.
-* Example: Clicking a button triggers its click event → parent → body → document.
+Event Delegation is the process of handling events in children by setting a listener on the parent; it requires less code and works on dynamic elements.
 
----
+5. **What is the difference between `preventDefault()` and `stopPropagation()` methods?**
 
-## 4. Event Delegation
-
-* Attach **one event listener** to a parent instead of many children.
-* Works via **event bubbling**.
-* Useful for **dynamic elements** added later.
-
----
-
-## 5. Difference between `preventDefault()` and `stopPropagation()`
-
-* **`preventDefault()`** → Stops default browser action (link click, form submit).
-* **`stopPropagation()`** → Stops event from bubbling up to parent elements.
+- `preventDefault()` stops the default action.
+- `stopPropagation()` stops the event from bubbling up to parent elements.
